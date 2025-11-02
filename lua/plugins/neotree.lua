@@ -7,7 +7,8 @@ return {
     "nvim-tree/nvim-web-devicons",
   },
   lazy = false,
-  config = function() 
+  config = function()
    vim.keymap.set('n', '<C-b>', ':Neotree filesystem toggle<CR>', { desc = 'Show tree file system' })
+    vim.keymap.set('n', '<leader>b', ':Neotree focus<CR>', { desc = 'focus on file tree' })
   end
 }
