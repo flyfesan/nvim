@@ -20,14 +20,21 @@ return {
 		config = function()
 			-- :h vim.lsp.buf -> shows the all the functions that can be used to communicate with the lsp
 
+			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			-- LSP servers
 			vim.lsp.config("rust_analyzer", {
 				-- Server-specific settings. See `:help lsp-quickstart`
 				settings = {
 					["rust-analyzer"] = {},
 				},
+				capabilities = capabilities,
 			})
-			vim.lsp.config("lua_ls", {})
+			vim.lsp.config("lua_ls", {
+				capabilities = capabilities,
+			})
+			vim.lsp.config("ts_ls", {
+				capabilities = capabilities,
+			})
 
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "shows the status of the hovered elt" })
 			vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "go to definition" })
