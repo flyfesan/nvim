@@ -14,6 +14,11 @@ return {
 			options = {
 				theme = "catppuccin",
 			},
+			filesystem = {
+				filtered_items = {
+					visible = true,
+				},
+			},
 		})
 
 		vim.keymap.set("n", "<C-b>", ":Neotree filesystem toggle<CR>", { desc = "Show tree file system" })
