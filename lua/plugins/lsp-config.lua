@@ -39,6 +39,9 @@ return {
 			vim.lsp.config("ts_ls", {
 				capabilities = capabilities,
 			})
+			vim.lsp.config("bash_ls", {
+				capabilities = capabilities,
+			})
 
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "shows the status of the hovered elt" })
 			vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "go to definition" })
