@@ -42,12 +42,19 @@ return {
 			vim.lsp.config("bash_ls", {
 				capabilities = capabilities,
 			})
+			vim.lsp.config("postgres_lsp", {
+				capabilities = capabilities,
+			})
+			vim.lsp.config("cssls", {
+				capabilities = capabilities,
+			})
 
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "shows the status of the hovered elt" })
 			vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "go to definition" })
 			vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "go to declaration" })
 			vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "go to implementation" })
 			vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "show references" })
+			vim.keymap.set("n", "gri", vim.lsp.buf.rename, { desc = "rename references " })
 			vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, { desc = "go to type definition" })
 			vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, { desc = "add folder to a workspace" })
 			vim.keymap.set(

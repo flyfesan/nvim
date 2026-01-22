@@ -6,7 +6,7 @@ vim.opt.expandtab = true
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 vim.mouse = "nvi"
 
 vim.keymap.set("", "<C-a>", ":wqa<CR>", { desc = "save all files in neovim and quit" })
