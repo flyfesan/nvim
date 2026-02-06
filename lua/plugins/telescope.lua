@@ -2,14 +2,25 @@ return {
 	{
 		"nvim-telescope/telescope.nvim",
 		tag = "0.1.8",
-		dependencies = { "nvim-lua/plenary.nvim" },
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
 		config = function()
-			local telescope = require("telescope.builtin")
-			vim.keymap.set("n", "<leader>ff", telescope.find_files, { desc = "Find files with Telescope" })
-			vim.keymap.set("n", "<leader>fg", telescope.live_grep, { desc = "Live grep with Telescope" })
-			vim.keymap.set("n", "<leader>fb", telescope.buffers, { desc = "Find in buffers with Telescope" })
-			vim.keymap.set("n", "<leader>fh", telescope.help_tags, { desc = "Show help tags" })
-			vim.keymap.set("n", "<leader>F", telescope.current_buffer_fuzzy_find, { desc = "fuzzy find text" })
+			local telescope_builtin = require("telescope.builtin")
+			vim.keymap.set("n", "<leader>ff", function()
+				local dir = vim.fn.argv(0)
+				if dir ~= "" and vim.fn.isdirectory(dir) then
+					telescope_builtin.find_files({ cwd = dir })
+				else
+					telescope_builtin.find_files()
+				end
+			end, { desc = "Find files with Telescope" })
+			vim.keymap.set("n", "<leader>fg", function()
+				telescope_builtin.live_grep({ search_dirs = { "%:p" } })
+			end, { desc = "Live grep with Telescope" })
+			vim.keymap.set("n", "<leader>fb", telescope_builtin.buffers, { desc = "Find in buffers with Telescope" })
+			vim.keymap.set("n", "<leader>fh", telescope_builtin.help_tags, { desc = "Show help tags" })
+			vim.keymap.set("n", "<leader>F", telescope_builtin.current_buffer_fuzzy_find, { desc = "fuzzy find text" })
 		end,
 	},
 	{

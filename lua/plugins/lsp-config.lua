@@ -1,5 +1,10 @@
 return {
 	{
+		"mrcjkb/rustaceanvim",
+		version = "^7", -- Recommended
+		lazy = false, -- This plugin is already lazy
+	},
+	{
 		"mason-org/mason.nvim",
 		config = function()
 			require("mason").setup()
@@ -20,33 +25,65 @@ return {
 		config = function()
 			-- :h vim.lsp.buf -> shows the all the functions that can be used to communicate with the lsp
 
+			-- Specify how the border looks like
+			local border = {
+				{ "┌", "FloatBorder" },
+				{ "─", "FloatBorder" },
+				{ "┐", "FloatBorder" },
+				{ "│", "FloatBorder" },
+				{ "┘", "FloatBorder" },
+				{ "─", "FloatBorder" },
+				{ "└", "FloatBorder" },
+				{ "│", "FloatBorder" },
+			}
+
+			-- Add the border on hover and on signature help popup window
+			local handlers = {
+				["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+				["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+			}
+
+			-- Add border to the diagnostic popup window
+			vim.diagnostic.config({
+				virtual_text = {
+					prefix = "↪ ", -- Could be '●', '▎', 'x', '■', , 
+				},
+				float = { border = border },
+			})
+
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			-- LSP servers
 			vim.lsp.config("rust_analyzer", {
 				-- Server-specific settings. See `:help lsp-quickstart`
 				settings = {
 					["rust-analyzer"] = {
-						-- diagnostics = {
-						-- 	disabled = { "unlinked-file" },
-						-- },
+						diagnostics = {
+							disabled = { "unlinked-file" },
+						},
 					},
 				},
 				capabilities = capabilities,
+				handlers = handlers,
 			})
 			vim.lsp.config("lua_ls", {
 				capabilities = capabilities,
+				handlers = handlers,
 			})
 			vim.lsp.config("ts_ls", {
 				capabilities = capabilities,
+				handlers = handlers,
 			})
 			vim.lsp.config("bash_ls", {
 				capabilities = capabilities,
+				handlers = handlers,
 			})
 			vim.lsp.config("postgres_lsp", {
 				capabilities = capabilities,
+				handlers = handlers,
 			})
 			vim.lsp.config("cssls", {
 				capabilities = capabilities,
+				handlers = handlers,
 			})
 
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "shows the status of the hovered elt" })
