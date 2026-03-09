@@ -14,7 +14,7 @@ return {
 		"mason-org/mason-lspconfig.nvim",
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "rust_analyzer", "stylua", "biome", "cssls", "clangd" },
+				ensure_installed = { "lua_ls", "rust_analyzer", "stylua", "biome", "cssls", "clangd", "ruff" },
 			})
 
 			vim.keymap.set("n", "<leader>pm", ":Mason<CR>", { desc = "Open Mason manager" })
@@ -58,14 +58,27 @@ return {
 				settings = {
 					["rust-analyzer"] = {
 						diagnostics = {
-							disabled = { "unlinked-file" },
+							enabled = false,
 						},
 					},
 				},
 				capabilities = capabilities,
 				handlers = handlers,
 			})
+			-- Python lsp
+			vim.lsp.config("jedi_language_server", {
+				capabilities = capabilities,
+				handlers = handlers,
+			})
+			vim.lsp.config("pyls", {
+				capabilities = capabilities,
+				handlers = handlers,
+			})
 			vim.lsp.config("lua_ls", {
+				capabilities = capabilities,
+				handlers = handlers,
+			})
+			vim.lsp.config("bashls", {
 				capabilities = capabilities,
 				handlers = handlers,
 			})
